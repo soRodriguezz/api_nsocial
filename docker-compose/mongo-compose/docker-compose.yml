@@ -4,7 +4,7 @@ services:
     container_name: db_mongo
     image: mongo
     environment:
-      - MONGO_INITDB_DATABASE=nsocial-dev
+      - MONGO_INITDB_DATABASE=nsocial_dev
     volumes:
       - $PWD/data:/data/db
     networks:
