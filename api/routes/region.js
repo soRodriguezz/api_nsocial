@@ -9,6 +9,7 @@ var api = express.Router();
 
 //rutas de la api Region
 api.post('/region',RegionController.saveRegion)
+api.get('/region/:id',RegionController.getRegion)
 
 
 module.exports = api;
