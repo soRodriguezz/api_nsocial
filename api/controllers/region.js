@@ -16,7 +16,6 @@ function saveRegion(req, res) {
         region.region = params.region;
 		region.breviatura = params.abreviatura;
 		region.capital = params.capital;
-    
 
         // busca si existe en la nodb email o nick para evitar duplicaciones
         Region.find({ $or: [{ region: region.region.toLowerCase() }, { capital: region.capital.toLowerCase() }] }).exec((err, regiones) => {
@@ -24,15 +23,14 @@ function saveRegion(req, res) {
             if (regiones && regiones.length >= 1) {
                 return res.status(200).send({ message: 'La region que intentas registrar ya existe!!' })
             } else {
-
-                    region.save((err, regionStored) => {
-                        if (err) return res.status(500).send({ message: 'Error al guardar las regiones' });
-                        if (regionStored) {
-                            res.status(200).send({ region: regionStored });
-                        } else {
-                            res.status(404).send({ message: 'No se ha registrado la region' })
-                        }
-                    })
+                region.save((err, regionStored) => {
+                    if (err) return res.status(500).send({ message: 'Error al guardar las regiones' });
+                    if (regionStored) {
+                        res.status(200).send({ region: regionStored });
+                    } else {
+                        res.status(404).send({ message: 'No se ha registrado la region' })
+                    }
+                })
             }
         });
 
@@ -43,16 +41,15 @@ function saveRegion(req, res) {
     }
 }
 
-
 /**
  * Método para obtener Regioness
- * @param {*} req 
- * @param {*} res 
+ * @param {*} req
+ * @param {*} res
  */
 function getRegion(req,res){
 
     var regionId = req.params.id;
-    
+
     Region.findById(regionId,(err,region)=>{
 
         if(err) return res.status(500).send({message: 'Error en la petición'});
@@ -63,13 +60,7 @@ function getRegion(req,res){
             region
         })
     });
-
-
-
-
 }
-
-
 
 // exportación de los módulos
 module.exports = {
